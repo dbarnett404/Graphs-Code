@@ -4,41 +4,29 @@ public interface Graph {
      * @param index
      * @param vertex
      */
-    void addVertex(int index, Vertex vertex);
+    void addVertex(String vertexLabel);
 
     /**
      * Add an edge to the graph
-     * @param start
-     * @param end
-     * @param weight
+     * @param startLabel - the label of the start vertex
+     * @param endLabel - the label of the end vertex
+     * @param weight - the weight of the edge
      */
-    void addEdge(int start, int end, int weight);
-
-    /**
-     * Get a vertex from the graph
-     * @param index
-     * @return
-     */
-    Vertex getVertex(int index);
+    void addEdge(String startLabel, String endLabel, int weight);
 
     /**
      * Get the edges of a vertex
-     * @param start
-     * @param end
+     * @param startLabel
+     * @param endLabel
      * @return
      */
-    int getEdge(int start, int end);
+    int fetchEdgeWeight(String startLabel, String endLabel);
 
     /**
      * Get the number of vertices in the graph
      * @return
      */
     int size();
-
-    /**
-     * Clear the visited status of all vertices
-     */
-    void clearVisited();
 
     /**
      * Display the graph

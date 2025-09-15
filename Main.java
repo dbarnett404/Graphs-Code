@@ -1,96 +1,57 @@
-import java.util.List;
-import java.util.Map;
 
 public class Main {
-    private static Map<String, Integer> vertexMap = new java.util.HashMap<>();
-    static {
-        vertexMap.put("A", 0);
-        vertexMap.put("B", 1);
-        vertexMap.put("C", 2);
-        vertexMap.put("D", 3);
-        vertexMap.put("E", 4);
-    }
-
-    public static Graph buildAdjacencyMatrix(GraphAdjMatrix graph) {
-        graph.addVertex(vertexMap.get("A"), new Vertex("A"));
-        graph.addVertex(vertexMap.get("B"), new Vertex("B"));
-        graph.addVertex(vertexMap.get("C"), new Vertex("C"));
-        graph.addVertex(vertexMap.get("D"), new Vertex("D"));
-        graph.addVertex(vertexMap.get("E"), new Vertex("E"));
-        // A: (B,20), (C,30)
-        graph.addEdge(vertexMap.get("A"), vertexMap.get("B"), 20);
-        graph.addEdge(vertexMap.get("A"), vertexMap.get("C"), 30);
-        // B: (A,20), (C,30), (E,25)
-        graph.addEdge(vertexMap.get("B"), vertexMap.get("A"), 20);
-        graph.addEdge(vertexMap.get("B"), vertexMap.get("C"), 30);
-        graph.addEdge(vertexMap.get("B"), vertexMap.get("E"), 25);
-        // C: (A,30), (B,30), (D,35)
-        graph.addEdge(vertexMap.get("C"), vertexMap.get("A"), 30);
-        graph.addEdge(vertexMap.get("C"), vertexMap.get("B"), 30);
-        graph.addEdge(vertexMap.get("C"), vertexMap.get("D"), 35);
-        // D: (C,35), (E,40)
-        graph.addEdge(vertexMap.get("D"), vertexMap.get("C"), 35);
-        graph.addEdge(vertexMap.get("D"), vertexMap.get("E"), 40);
-        // E: (B,25), (D,40)
-        graph.addEdge(vertexMap.get("E"), vertexMap.get("B"), 25);
-        graph.addEdge(vertexMap.get("E"), vertexMap.get("D"), 40);
-        return graph;
-    }
-
-    public static Graph buildAdjacencyList(GraphAdjList graph) {
-        graph.addVertex(vertexMap.get("A"), new Vertex("A"));
-        graph.addVertex(vertexMap.get("B"), new Vertex("B"));
-        graph.addVertex(vertexMap.get("C"), new Vertex("C"));
-        graph.addVertex(vertexMap.get("D"), new Vertex("D"));
-        graph.addVertex(vertexMap.get("E"), new Vertex("E"));
-        // A: (B,20), (C,30)
-        graph.addEdge(vertexMap.get("A"), vertexMap.get("B"), 20);
-        graph.addEdge(vertexMap.get("A"), vertexMap.get("C"), 30);
-        // B: (A,20), (C,30), (E,25)
-        graph.addEdge(vertexMap.get("B"), vertexMap.get("A"), 20);
-        graph.addEdge(vertexMap.get("B"), vertexMap.get("C"), 30);
-        graph.addEdge(vertexMap.get("B"), vertexMap.get("E"), 25);
-        // C: (A,30), (B,30), (D,35)
-        graph.addEdge(vertexMap.get("C"), vertexMap.get("A"), 30);
-        graph.addEdge(vertexMap.get("C"), vertexMap.get("B"), 30);
-        graph.addEdge(vertexMap.get("C"), vertexMap.get("D"), 35);
-        // D: (C,35), (E,40)
-        graph.addEdge(vertexMap.get("D"), vertexMap.get("C"), 35);
-        graph.addEdge(vertexMap.get("D"), vertexMap.get("E"), 40);
-        // E: (B,25), (D,40)
-        graph.addEdge(vertexMap.get("E"), vertexMap.get("B"), 25);
-        graph.addEdge(vertexMap.get("E"), vertexMap.get("D"), 40);
-        return graph;
-    }
-
-    private static void printPath(Graph graph, List<Integer> path) {
-         for (int vertex : path) {
-            System.out.print(graph.getVertex(vertex).getLabel() + " ");
+    private static String[] vertexLabels = {"A", "B", "C", "D", "E", "F", "G", "H"};
+    
+    public static Graph buildGraph(Graph graph) {
+        // Create a map to hold vertex labels to their indices
+        for (String label : vertexLabels) {
+            graph.addVertex(label);
         }
-        System.out.println();
-    }
-    private static void doDepthFirstSearch(Graph graph, int startVertex) {
-        List<Integer> path = Traversal.depthFirstSearch(graph, startVertex);
-        System.out.println("DFS Path from " + graph.getVertex(startVertex).getLabel() + ": ");
-        printPath(graph, path);
+
+        // A: (B,20), (C,15)
+        graph.addEdge("A", "B", 20);
+        graph.addEdge("A", "C", 15);
+        // B: (A,20), (C,22), (D, 25), (E,18)
+        graph.addEdge("B", "A", 20);
+        graph.addEdge("B", "C", 22);
+        graph.addEdge("B", "D", 25);
+        graph.addEdge("B", "E", 18);
+        // C: (A,15), (B,22), (D,24), (F, 12)
+        graph.addEdge("C", "A", 15);
+        graph.addEdge("C", "B", 22);
+        graph.addEdge("C", "D", 24);
+        graph.addEdge("C", "F", 12);
+        // D: (B, 25), (C,24), (E,22)
+        graph.addEdge("D", "B", 25);
+        graph.addEdge("D", "C", 24);
+        graph.addEdge("D", "E", 22);
+        // E: (B,18), (D,22)
+        graph.addEdge("E", "B", 18);
+        graph.addEdge("E", "D", 22);
+        // F: (C,12), (G,16)
+        graph.addEdge("F", "C", 12);
+        graph.addEdge("F", "G", 16);
+        // G: (F,16)
+        graph.addEdge("G", "F", 16);
+        // H: (D, 14)
+        graph.addEdge("H", "D", 14);
+        return graph;
     }
 
-    private static void doBreadthFirstSearch(Graph graph, int startVertex) {
-        List<Integer> path = Traversal.breadthFirstSearch(graph, startVertex);
-        System.out.println("BFS Path from " + graph.getVertex(startVertex).getLabel() + ": ");
-        printPath(graph, path);
-    }
-    public static void main(String[] args) {
-        GraphAdjMatrix adjacencyMatrixGraph = new GraphAdjMatrix(vertexMap.size());
-        buildAdjacencyMatrix((GraphAdjMatrix) adjacencyMatrixGraph);
-        adjacencyMatrixGraph.display();
-        doDepthFirstSearch(adjacencyMatrixGraph, vertexMap.get("A"));
-        doBreadthFirstSearch(adjacencyMatrixGraph, vertexMap.get("A"));
-        
-        GraphAdjList adjacencyListGraph = new GraphAdjList(vertexMap.size());
-        buildAdjacencyList(adjacencyListGraph);
+    public static void main(String[] args) {        
+        GraphAdjList adjacencyListGraph = new GraphAdjList();
+        buildGraph(adjacencyListGraph);
         adjacencyListGraph.display();
-        doDepthFirstSearch(adjacencyListGraph, vertexMap.get("A"));
-        doBreadthFirstSearch(adjacencyListGraph, vertexMap.get("A"));
+        GraphAdjMatrix adjacencyMatrixGraph = new GraphAdjMatrix(vertexLabels.length);
+        buildGraph(adjacencyMatrixGraph);    
+        adjacencyMatrixGraph.display();
+        System.out.println("DFS Traversal (Adjacency List):");
+        adjacencyMatrixGraph.depthFirstSearch();
+        System.out.println("\nBFS Traversal (Adjacency List):");
+        adjacencyMatrixGraph.breadthFirstSearch();
+        System.out.println("\nDFS Traversal (Adjacency Matrix):");
+        //adjacencyMatrixGraph.depthFirstTraversal();
+        System.out.println("\nBFS Traversal (Adjacency Matrix):");
+        //adjacencyMatrixGraph.breadthFirstTraversal();
     }
 }
