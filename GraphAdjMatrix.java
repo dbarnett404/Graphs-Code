@@ -1,9 +1,8 @@
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 public class GraphAdjMatrix implements Graph {
-        // Map to store vertices by their labels
+    // Map to store vertices by their labels
     private HashMap<String, Integer> labelToIndex;
     private int[][] adjacencyMatrix;
     private int size;
@@ -44,54 +43,35 @@ public class GraphAdjMatrix implements Graph {
         for (Map.Entry<String, Integer> entry : labelToIndex.entrySet()) {
             indexToLabel[entry.getValue()] = entry.getKey();
         }
-
-        // Print header row
-        for (int i = 0; i < indexToLabel.length; i++) {
-            System.out.print(String.format("%5s", indexToLabel[i]));
-        }
-        System.out.println();
-
-        // Print each row
-        for (int i = 0; i < indexToLabel.length; i++) {
-            //System.out.print(String.format("%4s", indexToLabel[i]));
-            System.out.print(String.format("%s", indexToLabel[i]));
-            for (int j = 0; j < indexToLabel.length; j++) {
-                System.out.print("|" + String.format("%3d", adjacencyMatrix[i][j]) + " ");
-            }
-            System.out.println("|");
-        }
+        // ...existing code...
     }
 
-    /**
-     * Perform a depth-first search (DFS) traversal of the graph.
-     * Visits all vertices, including disconnected components.
-     * Prints each visited vertex label in order.
-     */
-    public void depthFirstSearch() {
-        boolean[] visited = new boolean[size];
+
+    @Override
+    public Vertex getVertex(int index) {
+        String label = getVertexLabel(index);
+        if (label != null) {
+            return new Vertex(label);
+        }
+        return null;
+    }
+
+    @Override
+    public java.util.List<Edge> getEdges(String vertexLabel) {
+        java.util.List<Edge> edges = new java.util.ArrayList<>();
+        Integer vIdx = labelToIndex.get(vertexLabel);
+        if (vIdx == null) return edges;
         for (int i = 0; i < size; i++) {
-            if (!visited[i]) {
-                System.out.print("Starting DFS from: " + getVertexLabel(i) + ". Visiting: ");
-                dfsUtil(i, visited);
-                System.out.print("\n");
+            if (adjacencyMatrix[vIdx][i] != 0) {
+                String neighborLabel = getVertexLabel(i);
+                if (neighborLabel != null) {
+                    edges.add(new Edge(neighborLabel, adjacencyMatrix[vIdx][i]));
+                }
             }
         }
+        return edges;
     }
 
-    /**
-     * Recursive utility method for DFS traversal.
-     * @param vertex The current vertex index.
-     * @param visited Array tracking visited vertices.
-     */
-    private void dfsUtil(int vertex, boolean[] visited) {
-        visited[vertex] = true;
-        System.out.print(getVertexLabel(vertex) + " "); // Print as soon as visited
-        for (int i = 0; i < size; i++) {
-            if (adjacencyMatrix[vertex][i] != 0 && !visited[i]) {
-                dfsUtil(i, visited);
-            }
-        }
-    }
     /**
      * Get the label of a vertex given its index in the adjacency matrix.
      * @param index The index of the vertex.
@@ -105,43 +85,7 @@ public class GraphAdjMatrix implements Graph {
         }
         return null; // Should not happen if index is valid
     }
-    /**
-     * Perform a breadth-first search (BFS) traversal of the graph.
-     * Visits all vertices, including disconnected components.
-     * Prints each visited vertex label in order.
-     */
-    public void breadthFirstSearch() {
-        boolean[] visited = new boolean[size];
-        for (int i = 0; i < size; i++) {
-            if (!visited[i]) {
-                System.out.print("Starting BFS from: " + getVertexLabel(i) + ". Visiting: ");
-                bfsUtil(i, visited);
-                System.out.print("\n");
-            }
-        }
-    }
-
-    /**
-     * Utility method for BFS traversal using a queue.
-     * @param startVertex The starting vertex index.
-     * @param visited Array tracking visited vertices.
-     */
-    private void bfsUtil(int startVertex, boolean[] visited) {
-        LinkedList<Integer> queue = new LinkedList<>();
-        visited[startVertex] = true;
-        queue.add(startVertex);
-
-        while (!queue.isEmpty()) {
-            int vertex = queue.poll();
-            System.out.print(getVertexLabel(vertex) + " ");
-
-            for (int i = 0; i < size; i++) {
-                if (adjacencyMatrix[vertex][i] != 0 && !visited[i]) {
-                    visited[i] = true;
-                    queue.add(i);
-                }
-            }
-        }
-    }
 
 }
+
+

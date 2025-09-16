@@ -45,6 +45,7 @@ public class GraphAdjList implements Graph {
     public String getVertexLabel() {
         return null;
     }
+    @Override
     public Vertex getVertex(int index) {
         int i = 0;
         for (String vertexLabel : adjacencyList.keySet()) {
@@ -60,7 +61,8 @@ public class GraphAdjList implements Graph {
      * @param vertexLabel
      * @return
      */
-    public ArrayList<Edge> getEdges(String vertexLabel) {
+    @Override
+    public java.util.List<Edge> getEdges(String vertexLabel) {
         return new ArrayList<>(adjacencyList.get(vertexLabel));
     }
 
@@ -106,51 +108,5 @@ public class GraphAdjList implements Graph {
             }
         }
         return 0;
-    }
-
-    public void depthFirstSearch() {
-        Set<String> visited = new HashSet<>();
-        for (String vertex : adjacencyList.keySet()) {
-            if (!visited.contains(vertex)) {
-                dfsUtil(vertex, visited);
-            }
-        }
-    }
-
-    // Helper method for DFS
-    private void dfsUtil(String vertex, Set<String> visited) {
-        visited.add(vertex);
-        System.out.print(vertex + " ");
-        for (Edge edge : adjacencyList.get(vertex)) {
-            String neighbour = edge.getNeighbourVertex();
-            if (!visited.contains(neighbour)) {
-                dfsUtil(neighbour, visited);
-            }
-        }
-    }
-
-    public void breadthFirstSearch() {
-        Set<String> visited = new HashSet<>();
-        Queue<String> queue = new LinkedList<>();
-
-        for (String startVertex : adjacencyList.keySet()) {
-            if (!visited.contains(startVertex)) {
-                visited.add(startVertex);
-                queue.add(startVertex);
-
-                while (!queue.isEmpty()) {
-                    String vertex = queue.poll();
-                    System.out.print(vertex + " ");
-
-                    for (Edge edge : adjacencyList.get(vertex)) {
-                        String neighbour = edge.getNeighbourVertex();
-                        if (!visited.contains(neighbour)) {
-                            visited.add(neighbour);
-                            queue.add(neighbour);
-                        }
-                    }
-                }
-            }
-        }
     }
 }

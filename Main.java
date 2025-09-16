@@ -46,12 +46,12 @@ public class Main {
         buildGraph(adjacencyMatrixGraph);    
         adjacencyMatrixGraph.display();
         System.out.println("DFS Traversal (Adjacency List):");
-        adjacencyMatrixGraph.depthFirstSearch();
+        System.out.println(Traversal.depthFirstSearch(adjacencyListGraph));
         System.out.println("\nBFS Traversal (Adjacency List):");
-        adjacencyMatrixGraph.breadthFirstSearch();
+        System.out.println(Traversal.breadthFirstSearch(adjacencyListGraph));
         System.out.println("\nDFS Traversal (Adjacency Matrix):");
-        //adjacencyMatrixGraph.depthFirstTraversal();
+        System.out.println(Traversal.depthFirstSearch(adjacencyMatrixGraph));
         System.out.println("\nBFS Traversal (Adjacency Matrix):");
-        //adjacencyMatrixGraph.breadthFirstTraversal();
+        System.out.println(Traversal.breadthFirstSearch(adjacencyMatrixGraph));
     }
 }

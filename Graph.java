@@ -32,4 +32,18 @@ public interface Graph {
      * Display the graph
      */
     void display();
+
+    /**
+     * Get the vertex object at a given index.
+     * @param index The index of the vertex.
+     * @return The Vertex object, or null if not found.
+     */
+    Vertex getVertex(int index);
+
+    /**
+     * Get the edges of a vertex by label.
+     * @param vertexLabel The label of the vertex.
+     * @return A list of Edge objects for the vertex.
+     */
+    java.util.List<Edge> getEdges(String vertexLabel);
 }
