@@ -45,13 +45,19 @@ public class Main {
         GraphAdjMatrix adjacencyMatrixGraph = new GraphAdjMatrix(vertexLabels.length);
         buildGraph(adjacencyMatrixGraph);    
         adjacencyMatrixGraph.display();
+        
         System.out.println("DFS Traversal (Adjacency List):");
-        System.out.println(Traversal.depthFirstSearch(adjacencyListGraph));
+        System.out.println(DepthFirstSearch.dfs(adjacencyListGraph));
         System.out.println("\nBFS Traversal (Adjacency List):");
-        System.out.println(Traversal.breadthFirstSearch(adjacencyListGraph));
+        System.out.println(BreadthFirstSearch.bfs(adjacencyListGraph));
         System.out.println("\nDFS Traversal (Adjacency Matrix):");
-        System.out.println(Traversal.depthFirstSearch(adjacencyMatrixGraph));
+        System.out.println(DepthFirstSearch.dfs(adjacencyMatrixGraph));
         System.out.println("\nBFS Traversal (Adjacency Matrix):");
-        System.out.println(Traversal.breadthFirstSearch(adjacencyMatrixGraph));
+        System.out.println(BreadthFirstSearch.bfs(adjacencyMatrixGraph));
+        
+        System.out.println("\nDijkstra's Shortest Path (Adjacency List) from A to G:");
+        System.out.println(DijkstrasShortestPath.findShortestPath(adjacencyListGraph, "A", "G"));
+        System.out.println("\nDijkstra's Shortest Path (Adjacency Matrix) from A to G:");
+        System.out.println(DijkstrasShortestPath.findShortestPath(adjacencyMatrixGraph, "A", "G"));
     }
 }

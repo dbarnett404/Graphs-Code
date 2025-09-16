@@ -41,9 +41,23 @@ public interface Graph {
     Vertex getVertex(int index);
 
     /**
+     * Get the vertex object by its label.
+     * @param label The label of the vertex.
+     * @return The Vertex object, or null if not found.
+     */
+    Vertex getVertexByLabel(String label);
+
+    /**
      * Get the edges of a vertex by label.
      * @param vertexLabel The label of the vertex.
      * @return A list of Edge objects for the vertex.
      */
     java.util.List<Edge> getEdges(String vertexLabel);
+
+    /**
+     * Get the neighbors of a vertex as a map of label to edge weight.
+     * @param vertexLabel The label of the vertex.
+     * @return Map of neighbor label to edge weight.
+     */
+    java.util.Map<String, Integer> getNeighbors(String vertexLabel);
 }

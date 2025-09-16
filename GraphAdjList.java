@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 /**
  * Graph implementation using an adjacency list.
  * The adjacency list is represented as a map where each key is a vertex label
@@ -6,18 +9,18 @@ import java.util.*;
  * Each edge contains the destination vertex label and the weight of the edge.
  */
 
-public class GraphAdjList implements Graph {
 
-    //Initiate the field as a map of String keys to lists of edges
-    //This uses the interface for greater flexibility than a concrete class
+public class GraphAdjList implements Graph {
+    // Map of vertex label to Vertex object (unique instance per label)
+    private Map<String, Vertex> vertexMap;
+    // Map of String keys to lists of edges
     private Map<String, List<Edge>> adjacencyList;
 
     /**
      * Constructor
      */
     public GraphAdjList() {
-
-        //Create the adjacency list as a HashMap
+        vertexMap = new HashMap<>();
         adjacencyList = new HashMap<>();
     }
 
@@ -27,8 +30,10 @@ public class GraphAdjList implements Graph {
      */
     @Override    
     public void addVertex(String vertexLabel) {
-        //Initialize the adjacency list for this vertex
-        adjacencyList.put(vertexLabel, new ArrayList<>());
+        if (!vertexMap.containsKey(vertexLabel)) {
+            vertexMap.put(vertexLabel, new Vertex(vertexLabel));
+            adjacencyList.put(vertexLabel, new ArrayList<>());
+        }
     }
     
     /**
@@ -50,7 +55,7 @@ public class GraphAdjList implements Graph {
         int i = 0;
         for (String vertexLabel : adjacencyList.keySet()) {
             if (i == index) {
-                return new Vertex(vertexLabel);
+                return vertexMap.get(vertexLabel);
             }
             i++;
         }
@@ -108,5 +113,31 @@ public class GraphAdjList implements Graph {
             }
         }
         return 0;
+    }
+    /**
+     * Get the vertex object by its label.
+     * @param label The label of the vertex.
+     * @return The Vertex object, or null if not found.
+     */
+    @Override
+    public Vertex getVertexByLabel(String label) {
+        return vertexMap.get(label);
+    }
+
+    /**
+     * Get the neighbors of a vertex as a map of label to edge weight.
+     * @param vertexLabel The label of the vertex.
+     * @return Map of neighbor label to edge weight.
+     */
+    @Override
+    public java.util.Map<String, Integer> getNeighbors(String vertexLabel) {
+        java.util.Map<String, Integer> neighbors = new java.util.HashMap<>();
+        java.util.List<Edge> edges = adjacencyList.get(vertexLabel);
+        if (edges != null) {
+            for (Edge edge : edges) {
+                neighbors.put(edge.getNeighbourVertex(), edge.getWeight());
+            }
+        }
+        return neighbors;
     }
 }
