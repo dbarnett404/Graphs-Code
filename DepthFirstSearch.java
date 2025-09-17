@@ -41,16 +41,16 @@ public class DepthFirstSearch {
      * @param visited Set tracking visited vertex labels.
      * @param order List to record the order of traversal.
      */
-    private static void dfsUtil(Graph graph, String vertexLabel, Set<String> visited, java.util.List<String> order) {
+    private static void dfsUtil(Graph graph, String vertexLabel, Set<String> visited, List<String> order) {
         visited.add(vertexLabel); // Mark this vertex as visited
         order.add(vertexLabel);   // Record the visit order
         try {
-            // For each neighbor (edge) of the current vertex
+            // For each neighbour (edge) of the current vertex
             for (Edge edge : graph.getEdges(vertexLabel)) {
-                String neighbor = edge.getNeighbourVertex();
-                // If neighbor hasn't been visited, recurse
-                if (!visited.contains(neighbor)) {
-                    dfsUtil(graph, neighbor, visited, order);
+                String neighbour = edge.getNeighbourVertex();
+                // If neighbour hasn't been visited, recurse
+                if (!visited.contains(neighbour)) {
+                    dfsUtil(graph, neighbour, visited, order);
                 }
             }
         } catch (Exception e) {

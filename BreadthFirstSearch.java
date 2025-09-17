@@ -38,10 +38,10 @@ public class BreadthFirstSearch {
                     String vertex = queue.poll();
                     order.add(vertex);
 
-                    // For each neighbor (edge) of the current vertex
+                    // For each neighbour (edge) of the current vertex
                     for (Edge edge : graph.getEdges(vertex)) {
                         String neighbour = edge.getNeighbourVertex();
-                        // If neighbor hasn't been visited, add to queue and mark as visited
+                        // If neighbour hasn't been visited, add to queue and mark as visited
                         if (!visited.contains(neighbour)) {
                             visited.add(neighbour);
                             queue.add(neighbour);
